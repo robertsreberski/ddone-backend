@@ -1,0 +1,37 @@
+{
+	"presets": ["latest"],
+	"plugins": [
+		"syntax-async-functions",
+		"transform-regenerator",
+		"transform-object-rest-spread",
+		[
+			"module-alias",
+			[
+				{
+					"src": "./src/api/types",
+					"expose": "types"
+				},
+				{
+					"src": "./src/api/resolvers",
+					"expose": "resolvers"
+				},
+				{
+					"src": "./src/authentication",
+					"expose": "authentication"
+				},
+				{
+					"src": "./src/db",
+					"expose": "db"
+				},
+				{
+					"src": "./src/services",
+					"expose": "services"
+				},
+				{
+					"src": "./src/utils",
+					"expose": "utils"
+				}
+			]
+		]
+	]
+}
