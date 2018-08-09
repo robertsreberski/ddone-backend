@@ -18,9 +18,3 @@ export const createLink = async ({ url, description }) => {
 
 	return link
 }
-
-export const observeNewLinks = callback => {
-	Link.watch().on('change', ({ fullDocument }) => {
-		callback(fullDocument)
-	})
-}

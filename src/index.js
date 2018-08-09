@@ -8,9 +8,10 @@ import { getReadableIpAddress } from 'utils/misc'
 initializeDb()
 const pubsub = new PubSub()
 
-const context = ({ request }) => {
+const context = (req) => {
 	return {
-		...(request ? { currentUser: request.res.currentUser } : {}),
+		...(req.connection ? { currentUser: req.connection.context.currentUser} : {}),
+		...(req.request ? { currentUser: req.request.res.currentUser } : {}),
 		pubsub,
 	}
 }

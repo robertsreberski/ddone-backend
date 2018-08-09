@@ -26,11 +26,15 @@ const validateHeader = async (header, failure) => {
 }
 
 export const isSubscriptionAuthenticated = async connectionParams => {
-	const autorizationHeader = connectionParams['Authorization']
+	const authorizationHeader = connectionParams['Authorization']
 
-	return await validateHeader(autorizationHeader, () => {
+	const decoded = await validateHeader(authorizationHeader, () => {
 		throw new Error('Subscription not authenticated!')
 	})
+
+	return {
+		currentUser: decoded,
+	}
 }
 
 export const isQueryAuthenticated = async (req, res, next) => {
