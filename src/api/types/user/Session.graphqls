@@ -1,0 +1,15 @@
+type Session {
+    id: ID!,
+    device: String,
+    ip: String!,
+    start: Date!,
+    end: Date
+}
+
+type Query {
+    session(id: ID!): Session
+}
+
+type Mutation {
+    endSessions: [Session]!
+}

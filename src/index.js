@@ -1,4 +1,5 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga'
+import requestIp from 'request-ip'
 import types from 'types'
 import resolvers from 'resolvers'
 import { isSubscriptionAuthenticated, jwtAuthentication } from 'authentication'
@@ -6,12 +7,20 @@ import initializeDb from 'db'
 import { getReadableIpAddress } from 'utils/misc'
 
 initializeDb()
+
 const pubsub = new PubSub()
 
-const context = (req) => {
+const context = req => {
 	return {
-		...(req.connection ? { currentUser: req.connection.context.currentUser} : {}),
-		...(req.request ? { currentUser: req.request.res.currentUser } : {}),
+		...(req.connection
+			? { currentUser: req.connection.context.currentUser }
+			: {}),
+		...(req.request
+			? {
+					currentUser: req.request.res.currentUser,
+					ip: req.request.res.clientIp,
+			  }
+			: {}),
 		pubsub,
 	}
 }
@@ -32,8 +41,9 @@ const server = new GraphQLServer({
 	context,
 })
 
+server.express.use(requestIp.mw())
 server.express.use(jwtAuthentication({}).unless({ path: ['/play'] }))
-server.start(options, opts => {
+export default server.start(options, opts => {
 	const printedAddress = getReadableIpAddress({
 		isSecure: opts.https,
 		port: opts.port,

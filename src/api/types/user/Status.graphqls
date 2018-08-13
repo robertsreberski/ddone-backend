@@ -1,0 +1,15 @@
+type Status {
+    id: ID!,
+    name: String!,
+    start: Date!,
+    end: Date
+}
+
+type Query {
+    status(id: ID!): Status
+}
+
+type Mutation {
+    startStatus(name: String): Status
+    endStatus(id: ID!): Status
+}

@@ -1,10 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
-import { v4 as uuidv4 } from 'uuid'
 
-const linkSchema = new Schema({
-	_id: { type: String, default: uuidv4 },
-	url: String,
-	description: String,
+const schema = new Schema({
+	url: Schema.Types.String,
+	description: Schema.Types.String,
 })
 
-export default mongoose.model('Link', linkSchema)
+export default mongoose.model('Link', schema)

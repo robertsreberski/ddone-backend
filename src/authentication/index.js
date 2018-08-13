@@ -42,6 +42,7 @@ export const isQueryAuthenticated = async (req, res, next) => {
 
 	const decoded = await validateHeader(authorization, () => res.sendStatus(401))
 	res.currentUser = decoded
+	res.clientIp = req.clientIp
 	next()
 }
 
