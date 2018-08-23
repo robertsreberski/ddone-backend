@@ -1,0 +1,23 @@
+type Task {
+    id: ID
+    title: String
+    time: Int
+    #todo add tags: [Tag!] when implemented
+    notes: String
+    date: String
+    deadline: String
+    completed: Boolean
+    archived: Boolean
+}
+
+type Query {
+    task(id: ID!): Task
+    tasks: [Task!]
+
+}
+
+type Mutation {
+    createTask: Task
+    editTask: Task
+    removeTask: Task
+}
