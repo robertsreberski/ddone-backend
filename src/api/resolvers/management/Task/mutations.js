@@ -1,6 +1,6 @@
 import {createTask} from '../../../../services/management/TaskService'
 
-const mutationTask = async (root, args) => {
+const createNewTask = async (root, args) => {
     const task = {
         title: args.title,
         time: args.time,
@@ -13,5 +13,5 @@ const mutationTask = async (root, args) => {
 }
 
 export default {
-    createTask: mutationTask,
+    createTask: createNewTask,
 }
