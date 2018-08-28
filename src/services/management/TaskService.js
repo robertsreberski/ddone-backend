@@ -20,6 +20,8 @@ export const createTask = async ({title, time, notes, date, deadline}) => {
         notes,
         date,
         deadline,
+        archived: false,
+        completed: false,
     })
 
     await task.save(err => {
@@ -27,4 +29,23 @@ export const createTask = async ({title, time, notes, date, deadline}) => {
     })
 
     return task
+}
+
+export const removeTask = async (id) => {
+    try {
+        return await Task.findByIdAndRemove(id)
+    }catch(e) {
+        console.error(e)
+        return null
+    }
+}
+
+export const updateTask = async (id, task) => {
+    try {
+        return await Task.findByIdAndUpdate(id, task, {new: true})
+    }catch(e) {
+        console.error(e)
+        return null
+    }
+
 }
