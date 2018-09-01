@@ -11,6 +11,7 @@
     "test": "mocha --require babel-core/register --require babel-polyfill \"./__tests__/**/*.test.js\""
   },
   "dependencies": {
+    "casual": "^1.5.19",
     "express-jwt": "^5.3.1",
     "express-unless": "^0.5.0",
     "file-system": "^2.2.2",
