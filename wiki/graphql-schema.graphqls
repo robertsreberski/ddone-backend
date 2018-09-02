@@ -1,0 +1,134 @@
+type CalendarDay {
+  id: ID!
+  date: String!
+  entries: [TimeEntry!]!
+  container: Container!          
+}
+            
+type Container {
+  id: ID!
+  type: String!
+  name: String
+  color: String
+  tasks: [Task!]!
+  archived: Boolean!            
+}
+            
+type Tag {
+  id: ID!
+  name: String!
+  color: String!
+  archived: Boolean!  
+}
+  
+type Task {
+  id: ID!
+  title: String!
+  time: Long! /* Time in millis */
+  tags: [Tag!]!
+  notes: String
+  date: Date /* custom type */
+  project: ID! 
+  deadline: Date
+  completed: Boolean!
+  archived: Boolean!
+}
+         
+type Workspace {
+  id: ID!
+  name: String!
+  color: String!
+  projects: [Container!]!       
+  archived: Boolean!         
+}
+  
+type TimeEntry {
+  id: ID!
+  intervals: [Interval!]!
+  tasks: TimeEntryTasks!
+  previousEntry: TimeEntry
+  completed: Boolean!
+  abandoned: Boolean!
+}
+
+type TimeEntryTasks {
+  inProgress: [Task!]!
+  completed: [Task!]!
+}
+	
+type Timer {
+  active: Boolean!
+  runningEntry: TimeEntry
+}
+
+type Interval {
+  id: ID!
+  start: Date!
+  end: Date!
+}
+
+type Status {
+  id: ID!
+  name: String!
+  start: Date!
+  end: Date
+}
+
+type Session {
+  id: ID!
+  device: String! /* userAgent*/
+  ip: String!
+  start: Date!
+  end: Date
+}
+/* new */ type Settings {
+  id: ID!
+  pomodoro: PomodoroSettings
+}
+
+type PomodoroSettings {
+  workTime: Long!
+  breakTime: Long!
+  longBreakTime: Long!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String
+  photoURL: String
+  sessions(active: Boolean): [Sessions!]!
+  statuses(active: Boolean): [Status!]!
+  settings: Settings!
+  
+  workspaces: [Workspace!]!
+  calendar: [CalendarDay!]!
+  timer: Timer!
+  
+  emailVerified: Boolean!
+  disabled: Boolean!
+}
+
+type Query {
+  getUser: User!
+  getSettings: Settings!
+  getSessionById(id: ID!): Session!
+  getStatusById(id: ID!): Status!
+  
+  getWorkspaceById(id: ID!): Workspace!
+  getContainerById(id: ID!): Container!
+  getTaskById(id: ID!): Task!
+  getTagById(id: ID!): Tag!
+  getCalendarDayById(id: ID!): CalendarDay!
+  
+  getTimer: Timer!
+  getTimeEntryById(id: ID!): TimeEntry!
+  
+  getAllSessions: [Session!]!
+  getAllStatuses: [Status!]!
+  getAllWorkspaces: [Workspace!]!
+  getAllContainers: [Container!]!
+  getAllTasks: [Task!]!
+  getAllTags: [Tag!]!
+  getAllTimeEntries: [TimeEntry!]!
+}
