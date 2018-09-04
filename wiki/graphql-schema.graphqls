@@ -132,3 +132,86 @@ type Query {
   getAllTags: [Tag!]!
   getAllTimeEntries: [TimeEntry!]!
 }
+
+type Mutation {
+  createCalendarDay(
+    date: Date!
+  ): CalendarDay!
+  
+  createProject(
+    name: String!
+    color: String!
+  ): Container!
+  
+  createTag(
+    name: String!
+    color: String!
+  ): Tag!
+  
+  createTask(
+    input: TaskInput
+  ): Task!
+  
+  createWorkspace(
+    name: String!
+    color: String!
+  ): Workspace!
+  
+  createStatus(
+    name: String!
+  ): Status!
+  
+  createSession(
+    device: String!
+  ): Session!
+  
+  updateContainer(
+    id: ID!
+    name: String
+    color: String
+  ): Container!
+  
+  updateTask(
+    id: ID!
+    input: TaskInput
+  ): Task!
+  
+  updateTag(
+    id: ID!
+    name: String
+    color: String
+  ): Tag!
+  
+  updateWorkspace(): Workspace!
+  
+  
+  /*
+  login(): User
+  register(): User!
+  */
+}
+
+input WorkspaceInput {
+  name: String
+  color: String
+}
+
+input TaskInput {
+    title: String
+    tags: [TagInput!]
+    time: Long
+    notes: String
+    date: Date
+    project: ID
+    deadline: Date
+    completed: Boolean
+    archived: Boolea
+}
+
+input TagInput {
+  
+}
+
+
+  
+  
